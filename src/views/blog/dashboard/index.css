@@ -1,0 +1,9 @@
+.paginationActive {
+    background-color : red;
+    padding : 3px;
+}
+
+.paginationBttns{
+    background-color  : green;
+}
+
