@@ -1,6 +1,7 @@
-import { useState,useContext } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import api from "../../api";
+import AuthContext from "../../middleware/authProvider";
 
 export default function Register() {
   const [form, setForm] = useState({
@@ -9,6 +10,7 @@ export default function Register() {
     password: "",
     confirm_password: "",
   });
+  const { isLogin } = useContext(AuthContext);
 
   async function handleRegister(e) {
     e.preventDefault();
@@ -21,7 +23,7 @@ export default function Register() {
         body: JSON.stringify(form),
       });
       if (response.data.token) {
-        
+        isLogin(response.data.token);
       }
     } catch (err) {
       alert(err);
