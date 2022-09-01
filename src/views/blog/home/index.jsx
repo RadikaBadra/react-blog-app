@@ -1,22 +1,21 @@
-import { useRecoilState } from "recoil";
+import { useRecoilValue, useRecoilRefresher_UNSTABLE } from "recoil";
 import { useState, useEffect } from "react";
-import { handleGetBlogs, getBlogs } from "../../../store";
+import { getBlogs } from "../../../store";
 import Sidebar from "../../../component/sidebar";
 import Card from "../../../component/card";
 import ReactPaginate from "react-paginate";
 import "./index.css";
 
 export default function App() {
-  const [blogs, setBlogs] = useRecoilState(getBlogs);
+  const blogs = useRecoilValue(getBlogs);
   const [pageNumber, setPageNumber] = useState(0);
+  const refresh = useRecoilRefresher_UNSTABLE(getBlogs);
 
   const BlogsPerPage = 3;
   const currPage = pageNumber * BlogsPerPage;
 
   useEffect(() => {
-    handleGetBlogs().then((items) => {
-      setBlogs(items);
-    });
+    refresh()
   }, []);
 
   function displayBlogs(blogs) {

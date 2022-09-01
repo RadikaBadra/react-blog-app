@@ -53,19 +53,17 @@ const handleMakeBlog = async (data) => {
   }
 };
 
-const handleGetBlogs = async () => {
-  const response = await api("getBlogs", {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-    },
-  });
-  return response.data;
-};
-
-const getBlogs = atom({
+const getBlogs = selector({
   key: "getBlogs",
-  default: handleGetBlogs(),
+  get: async () => {
+    const response = await api("getBlogs", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    return response.data;
+  }
 });
 
 const getOneBlog = atomFamily({
@@ -158,7 +156,6 @@ export {
   authUser,
   getBlogs,
   handleMakeBlog,
-  handleGetBlogs,
   getOneBlog,
   getBlogUser,
   handleUpdateBlog,

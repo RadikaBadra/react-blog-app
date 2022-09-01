@@ -7,7 +7,8 @@ import { Suspense } from "react";
 import Home from "./views/blog/home";
 import Login from "./views/user/login";
 import MakeBlog from "./views/blog/make_blog";
-import * as middleware from "./middleware/app";
+import { ProtectedHome, ProtectedLogin } from "./middleware/ProtectedRoute";
+import { AuthProvider } from "./middleware/authProvider";
 import ReadBlog from "./views/blog/read_blog";
 import Dashboard from "./views/blog/dashboard";
 import EditBlog from "./views/blog/edit_blog";
@@ -25,57 +26,25 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       }
     >
       <BrowserRouter>
-        <div>
-        </div>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-
-          <Route
-            path="/"
-            element={
-              <middleware.Authenticated>
-                <Home />
-              </middleware.Authenticated>
-            }
-          />
-
-          <Route
-            path="/makeBlog"
-            element={
-              <middleware.Authenticated>
-                <MakeBlog />
-              </middleware.Authenticated>
-            }
-          />
-
-          <Route
-            path="/readBlog/:id"
-            element={
-              <middleware.Authenticated>
-                <ReadBlog />
-              </middleware.Authenticated>
-            }
-          />
-
-          <Route
-            path="/dashboard"
-            element={
-              <middleware.Authenticated>
-                <Dashboard />
-              </middleware.Authenticated>
-            }
-          />
-
-          <Route
-            path="editBlog/:id"
-            element={
-              <middleware.Authenticated>
-                <EditBlog />
-              </middleware.Authenticated>
-            }
-          />
-        </Routes>
+        {" "}
+        <AuthProvider>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route
+              path="/"
+              element={
+                <ProtectedLogin>
+                  <Home />
+                </ProtectedLogin>
+              }
+            />
+            <Route path="/makeBlog" element={<MakeBlog />} />
+            <Route path="/readBlog/:id" element={<ReadBlog />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="editBlog/:id" element={<EditBlog />} />{" "}
+          </Routes>{" "}
+        </AuthProvider>
       </BrowserRouter>
     </Suspense>
   </RecoilRoot>

@@ -1,31 +1,35 @@
-import { useRecoilState, useRecoilValue } from "recoil";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import api from "../../api";
+import AuthContext from "../../middleware/authProvider";
 
 export default function Login() {
-  const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+  const { isLogin } = useContext(AuthContext);
 
-  async function handleLogin(e){
+  async function handleLogin(e) {
     e.preventDefault();
-    const responses = await api(`login`, {
-      method : "POST",
-      body : {
-        email : email,
-        password : password
+    try {
+      const response = await api("login", {
+        method: "POST",
+        body: JSON.stringify(form),
+      });
+      console.log(response);
+      if (response.data.token) {
+        isLogin(
+          response.data.token,
+          response.data.author_id,
+          response.data.name
+        );
       }
-    })
-    console.log(responses)
-    if(responses.data.token){
-      localStorage.setItem('token', responses.data.token);
-      navigate("/");
+    } catch (err) {
+      alert(err);
+      console.log(err);
     }
-    
   }
-
   return (
     <div class="container mx-auto p-4 bg-white">
       <div class="w-full md:w-1/2 lg:w-1/3 mx-auto my-12">
@@ -36,8 +40,8 @@ export default function Login() {
             name="email"
             class="px-4 py-3 mt-4 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
             placeholder="Email address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={form.email}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
           />
 
           <input
@@ -45,8 +49,8 @@ export default function Login() {
             name="password"
             class="px-4 py-3 mt-4 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
             placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={form.password}
+            onChange={(e) => setForm({ ...form, password: e.target.value })}
           />
 
           <button
