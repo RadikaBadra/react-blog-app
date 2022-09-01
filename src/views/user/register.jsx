@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import api from "../../api";
 import AuthContext from "../../middleware/authProvider";
+import Swal from "sweetalert2";
 
 export default function Register() {
   const [form, setForm] = useState({
@@ -23,6 +24,12 @@ export default function Register() {
         body: JSON.stringify(form),
       });
       if (response.data.token) {
+        Swal.fire({
+          title: "Successs",
+          text: "User Registred",
+          icon: "success",
+          confirmButtonText: "Cool",
+        });
         isLogin(response.data.token);
       }
     } catch (err) {

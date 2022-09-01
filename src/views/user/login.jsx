@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import api from "../../api";
 import AuthContext from "../../middleware/authProvider";
+import Swal from "sweetalert2";
 
 export default function Login() {
   const [form, setForm] = useState({
@@ -19,11 +20,13 @@ export default function Login() {
       });
       console.log(response);
       if (response.data.token) {
-        isLogin(
-          response.data.token,
-          response.data.author_id,
-          response.data.name
-        );
+        Swal.fire({
+          title: "Successs",
+          text: "User Logged In",
+          icon: "success",
+          confirmButtonText: "Cool",
+        });
+        isLogin(response.data.token);
       }
     } catch (err) {
       alert(err);

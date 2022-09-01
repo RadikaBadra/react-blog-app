@@ -9,12 +9,12 @@ import {
 } from "recoil";
 
 import api from "../api";
+import Swal from "sweetalert2";
 
 const successAlert = atom({
-  key : "successAlert",
-  default : false,
-
-})
+  key: "successAlert",
+  default: false,
+});
 
 const authUser = selector({
   key: "authUser",
@@ -46,6 +46,12 @@ const handleMakeBlog = async (data) => {
       },
       body: fd,
     });
+    Swal.fire({
+      title: "Successs",
+      text: "Blog published",
+      icon: "success",
+      confirmButtonText: "Cool",
+    });
     return response.data;
   } catch (err) {
     alert(err);
@@ -63,7 +69,7 @@ const getBlogs = selector({
       },
     });
     return response.data;
-  }
+  },
 });
 
 const getOneBlog = atomFamily({

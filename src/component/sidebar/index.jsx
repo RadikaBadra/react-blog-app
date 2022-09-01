@@ -6,12 +6,12 @@ import { Link } from "react-router-dom";
 import { RiLogoutBoxRFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import "./index.css";
-import { useState } from "react";
-
+import { useState, useContext } from "react";
+import AuthContext from "../../middleware/authProvider";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate();
+  const { isLogout } = useContext(AuthContext);
 
   return (
     <>
@@ -75,22 +75,26 @@ const Sidebar = () => {
                   </div>
                 </li>
               </Link>
-              <div className=" logout my-2 w-44 flex space-x-4 bottom-6 absolute items-center">
-                <div className="icon">
-                  <RiLogoutBoxRFill size={17} />
+              <button onClick={() => isLogout()}>
+                <div className=" logout my-2 w-44 flex space-x-4 bottom-6 absolute items-center">
+                  <div className="icon">
+                    <RiLogoutBoxRFill size={17} />
+                  </div>
+                  <div
+                    className={`${
+                      isOpen ? "scale-100" : "scale-0"
+                    } duration-300`}
+                  >
+                    <h2>Log Out</h2>
+                  </div>
                 </div>
-                <div
-                  className={`${isOpen ? "scale-100" : "scale-0"} duration-300`}
-                >
-                  <h2>Log Out</h2>
-                </div>
-              </div>
+              </button>
             </ul>
           </div>
         </div>
       </div>
     </>
   );
-}
+};
 
 export default Sidebar;
