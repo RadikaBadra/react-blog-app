@@ -5,6 +5,7 @@ import { FaUserAlt } from "react-icons/fa";
 import { useState } from "react";
 import { useEffect } from "react";
 import { handleDeleteBlog, getBlogUser } from "../../store";
+import Swal from "sweetalert2";
 
 const Card = (props) => {
   const [isDashboard, setIsDashboard] = useState(false);
@@ -18,8 +19,24 @@ const Card = (props) => {
 
   function deleteFunction(e) {
     e.preventDefault();
-    handleDeleteBlog(props.id);
-    props.refresh();
+    Swal.fire({
+      title: "Do you want to save the changes?",
+      showDenyButton: true,
+      confirmButtonText: "Yes",
+      denyButtonText: "No",
+      customClass: {
+        actions: "my-actions",
+        cancelButton: "order-1 right-gap",
+        confirmButton: "order-2",
+        denyButton: "order-3",
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        handleDeleteBlog(props.id);
+        Swal.fire("Deleted", "", "success");
+        props.refresh();
+      }
+    });
   }
 
   return (
@@ -47,7 +64,10 @@ const Card = (props) => {
           <FaUserAlt className="icons ml-5 mr-1" />
           <span key={props.id + props.author}>{props.author}</span>
         </div>
-        <p className="lg:text-base text-[3vw] line-clamp-3" key={props.id + props.content}>
+        <p
+          className="lg:text-base text-[3vw] line-clamp-3"
+          key={props.id + props.content}
+        >
           {props.content}
         </p>
         <div>
@@ -72,15 +92,13 @@ const Card = (props) => {
                   </button>
                 </Link>
 
-                
-                  <button
-                    key={"button" + props.id}
-                    onClick={(e) => deleteFunction(e)}
-                    className="lg:w-20 w-14 text-text p-2 text-sm bg-red-500"
-                  >
-                    Delete
-                  </button>
-              
+                <button
+                  key={"button" + props.id}
+                  onClick={(e) => deleteFunction(e)}
+                  className="lg:w-20 w-14 text-text p-2 text-sm bg-red-500"
+                >
+                  Delete
+                </button>
               </div>
             </>
           ) : (

@@ -34,6 +34,7 @@ export default function Dashboard() {
           author={blog.author}
           content={blog.content}
           image={blog.image}
+          refresh={refresh}
         />
       ));
   }
