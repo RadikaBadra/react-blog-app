@@ -13,18 +13,13 @@ import ReadBlog from "./views/blog/read_blog";
 import Dashboard from "./views/blog/dashboard";
 import EditBlog from "./views/blog/edit_blog";
 import Register from "./views/user/register";
+import Loading from "./component/loading";
 
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <RecoilRoot>
-    <Suspense
-      fallback={
-        <div className="h-screen text-center">
-          <div className="text-4xl font-bold">Loading...</div>
-        </div>
-      }
-    >
+    <Suspense fallback={<Loading />}>
       <BrowserRouter>
         {" "}
         <AuthProvider>
