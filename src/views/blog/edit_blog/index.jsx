@@ -77,7 +77,7 @@ export default function EditBlog() {
               </p>
               <form
                 action=""
-                className="flex flex-col w-[55vw] lg:w-[50vw] my-5"
+                className="flex flex-col w-[55vw] lg:w-[75vw] my-5"
                 onSubmit={(e) => handleSubmit(e)}
               >
                 <label htmlFor="title" className="lg:text-lg mt-2">
