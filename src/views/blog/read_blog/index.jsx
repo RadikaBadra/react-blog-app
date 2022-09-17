@@ -34,9 +34,11 @@ export default function ReadBlog() {
 
           <div className="flex-col px-10 h-full py-5 w-11/12">
             <div className="m-auto lg:w-[70vw] w-[65vw]">
-              <h1 className="text-[5vw] font-bold text-center my-16">
-                {blog.title}
-              </h1>
+              <div className="w-50">
+                <h1 className="text-[5vw] font-bold text-center my-16">
+                  {blog.title}
+                </h1>
+              </div>
               <img
                 className="lg:h-[80vw] m-auto object-contain"
                 src={imageUrl}

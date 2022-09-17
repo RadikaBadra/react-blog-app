@@ -38,7 +38,6 @@ export default function Dashboard() {
         />
       ));
   }
-
   return (
     <>
       <div className="flex flex-row bg-text-bg w-full text-title overflow-auto">
@@ -48,7 +47,7 @@ export default function Dashboard() {
           </aside>
         </div>
 
-        <div className="flex-col md:h-full lg:h-screen h-full mx-10 py-5">
+        <div className="flex-col md:h-full w-full lg:h-screen h-screen mx-10 py-5">
           <div className="items-center w-full">
             <div>
               <h1 className="lg:text-7xl w-11/12 text-4xl font-bold">
@@ -60,32 +59,41 @@ export default function Dashboard() {
               </p>
             </div>
           </div>
-
-          <div className="mt-10 grid lg:grid-cols-3 md:grid-cols-1 grid-cols-1 gap-4 ">
-            {displayBlogs(blogs)}
-          </div>
-          <div>
-            <ReactPaginate
-              className="flex flex-row justify-center lg:gap-x-5 gap-x-1 mt-8 w-50 text-sm lg:w-100 lg:text-base"
-              previousLabel={"Previous"}
-              nextLabel={"Next"}
-              pageCount={Math.ceil(blogs.length / BlogsPerPage)}
-              onPageChange={({ selected }) => setPageNumber(selected)}
-              pageLinkClassName={"pageLink"}
-              previousClassName={"pageItem"}
-              containerClassName={"paginationBttn"}
-              previousLinkClassName={"previousBttn"}
-              nextLinkClassName={"nextBttn"}
-              disabledClassName={"paginationDisabled"}
-              activeClassName={"paginationActive"}
-              breakClassName={"paginationBreak"}
-              breakLabel={"..."}
-              forcePage={pageNumber}
-              marginPagesDisplayed={1}
-              pageRangeDisplayed={1}
-              subContainerClassName={"paginationSubContainer"}
-            />
-          </div>
+          {blogs.length == 0 ? (
+            <>
+              <div className="flex h-5/6 items-center justify-center m-auto">
+                <p>kosong</p>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="mt-10 grid lg:grid-cols-3 md:grid-cols-1 grid-cols-1 gap-4 ">
+                {displayBlogs(blogs)}
+              </div>
+              <div>
+                <ReactPaginate
+                  className="flex flex-row justify-center lg:gap-x-5 gap-x-1 mt-8 w-50 text-sm lg:w-100 lg:text-base"
+                  previousLabel={"Previous"}
+                  nextLabel={"Next"}
+                  pageCount={Math.ceil(blogs.length / BlogsPerPage)}
+                  onPageChange={({ selected }) => setPageNumber(selected)}
+                  pageLinkClassName={"pageLink"}
+                  previousClassName={"pageItem"}
+                  containerClassName={"paginationBttn"}
+                  previousLinkClassName={"previousBttn"}
+                  nextLinkClassName={"nextBttn"}
+                  disabledClassName={"paginationDisabled"}
+                  activeClassName={"paginationActive"}
+                  breakClassName={"paginationBreak"}
+                  breakLabel={"..."}
+                  forcePage={pageNumber}
+                  marginPagesDisplayed={1}
+                  pageRangeDisplayed={1}
+                  subContainerClassName={"paginationSubContainer"}
+                />
+              </div>
+            </>
+          )}
         </div>
       </div>
     </>
