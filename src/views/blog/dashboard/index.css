@@ -1,9 +1,30 @@
 .paginationActive {
-    background-color : red;
-    padding : 3px;
+  background-color: #0f3d3e;
+  color: white;
 }
 
-.paginationBttns{
-    background-color  : green;
+.pageLink {
+  padding: 10px;
 }
 
+.pageLink:hover {
+  color: white;
+}
+
+.nextBttn:hover {
+  color: white;
+  transition: all 0.3s ease-in;
+}
+
+.nextBttn {
+  padding: 5px;
+}
+
+.previousBttn {
+  padding: 5px;
+}
+
+.previousBttn:hover {
+  color: white;
+  transition: all 0.3s ease-in;
+}

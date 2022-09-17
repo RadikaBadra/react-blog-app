@@ -17,7 +17,7 @@ const Sidebar = () => {
     <>
       <div
         className={`${
-          isOpen ? "w-60" : "w-24"
+          isOpen ? "lg:w-60 w-40" : "lg:w-24 w-14"
         } h-full duration-300 bg-sidebar-bg relative text-text`}
       >
         <div
@@ -25,15 +25,15 @@ const Sidebar = () => {
             absolute cursor-pointer -right-3 top-9 duration-300 control rounded-full bg-sidebar-bg`}
         >
           <IoIosArrowDropleftCircle
-            size={35}
+            size={30}
             onClick={(e) => setIsOpen(!isOpen)}
           />
         </div>
-        <div className="flex flex-col md:h-full">
+        <div className="flex flex-col md:h-full h-full">
           <div>
-            <ul className="list-reset mx-2 my-9 space-y-3 px-5 items-center ">
+            <ul className="list-reset lg:mx-2 lg:my-9 my-5  lg:px-5 px-2 lg:text-base text-xs">
               <Link to={"/"}>
-                <li className="flex space-x-4 items-center">
+                <li className="flex lg:space-x-4 space-x-1 items-center lg:mb-5 mb-2">
                   <div className="icon">
                     <FaHome size={17} />
                   </div>
@@ -48,7 +48,7 @@ const Sidebar = () => {
               </Link>
 
               <Link to={"/makeBlog"}>
-                <li className="my-2 flex space-x-4 items-center">
+                <li className="flex lg:space-x-4 space-x-1 items-center lg:mb-5 mb-2">
                   <div className="icon">
                     <FaPencilAlt size={17} />
                   </div>
@@ -62,8 +62,8 @@ const Sidebar = () => {
                 </li>
               </Link>
               <Link to={"/dashboard"}>
-                <li className="my-2 flex space-x-4 items-center">
-                  <div className="icon">
+                <li className="flex lg:space-x-4 space-x-1 items-center lg:mb-5 mb-2">
+                  <div className="icon ">
                     <RiDashboardFill size={17} />
                   </div>
                   <div
@@ -76,7 +76,7 @@ const Sidebar = () => {
                 </li>
               </Link>
               <button onClick={() => isLogout()}>
-                <div className=" logout my-2 w-44 flex space-x-4 bottom-6 absolute items-center">
+                <div className=" logout flex lg:space-x-4 space-x-1 absolute bottom-4 items-center">
                   <div className="icon">
                     <RiLogoutBoxRFill size={17} />
                   </div>

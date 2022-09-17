@@ -37,26 +37,32 @@ const handleMakeBlog = async (data) => {
   fd.append("image", images);
   fd.append("title", data.title);
   fd.append("content", data.content);
-  try {
-    const response = await api("makeBlog", {
-      method: "POST",
-      headers: {
-        contentType: "multipart/form-data",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-      body: fd,
+
+  await api("makeBlog", {
+    method: "POST",
+    headers: {
+      contentType: "multipart/form-data",
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+    body: fd,
+  })
+    .then((data) => {
+      Swal.fire({
+        title: "Successs",
+        text: "Blog published",
+        icon: "success",
+        confirmButtonText: "Cool",
+      });
+      return data.data;
+    })
+    .catch((error) => {
+      Swal.fire({
+        title: "Failed",
+        text: error.data.message,
+        icon: "error",
+        confirmButtonText: "ok",
+      });
     });
-    Swal.fire({
-      title: "Successs",
-      text: "Blog published",
-      icon: "success",
-      confirmButtonText: "Cool",
-    });
-    return response.data;
-  } catch (err) {
-    alert(err);
-    console.log(err);
-  }
 };
 
 const getBlogs = selector({
@@ -127,20 +133,31 @@ const handleUpdateBlog = async (data) => {
   fd.append("title", data.title);
   fd.append("content", data.content);
 
-  try {
-    const response = await api(`updateBlog/${data.id}`, {
-      method: "POST",
-      headers: {
-        contentType: "multipart/form-data",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-      body: fd,
+  await api(`updateBlog/${data.id}`, {
+    method: "POST",
+    headers: {
+      contentType: "multipart/form-data",
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+    body: fd,
+  })
+    .then((data) => {
+      Swal.fire({
+        title: "Success",
+        text: data.message,
+        icon: "success",
+        confirmButtonText: "ok",
+      });
+      return data.data;
+    })
+    .catch((error) => {
+      Swal.fire({
+        title: "Failed",
+        text: error.data.message,
+        icon: "error",
+        confirmButtonText: "ok",
+      });
     });
-    return response;
-  } catch (err) {
-    alert(err);
-    console.log(err);
-  }
 };
 
 const handleDeleteBlog = async (id) => {
@@ -158,6 +175,19 @@ const handleDeleteBlog = async (id) => {
   }
 };
 
+const getRandomBlogs = selector({
+  key: "getRandomBlogs",
+  get: async () => {
+    const response = await api("getRandomBlogs", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    return response.data;
+  },
+});
+
 export {
   authUser,
   getBlogs,
@@ -166,4 +196,5 @@ export {
   getBlogUser,
   handleUpdateBlog,
   handleDeleteBlog,
+  getRandomBlogs
 };

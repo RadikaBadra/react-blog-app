@@ -66,12 +66,14 @@ export default function Dashboard() {
           </div>
           <div>
             <ReactPaginate
-              className="flex flex-row justify-center gap-4 mt-8"
+              className="flex flex-row justify-center lg:gap-x-5 gap-x-1 mt-8 w-50 text-sm lg:w-100 lg:text-base"
               previousLabel={"Previous"}
               nextLabel={"Next"}
               pageCount={Math.ceil(blogs.length / BlogsPerPage)}
               onPageChange={({ selected }) => setPageNumber(selected)}
-              containerClassName={"paginationBttns"}
+              pageLinkClassName={"pageLink"}
+              previousClassName={"pageItem"}
+              containerClassName={"paginationBttn"}
               previousLinkClassName={"previousBttn"}
               nextLinkClassName={"nextBttn"}
               disabledClassName={"paginationDisabled"}
@@ -80,9 +82,8 @@ export default function Dashboard() {
               breakLabel={"..."}
               forcePage={pageNumber}
               marginPagesDisplayed={1}
-              pageRangeDisplayed={3}
+              pageRangeDisplayed={1}
               subContainerClassName={"paginationSubContainer"}
-              activeLinkClassName={"paginationActive"}
             />
           </div>
         </div>

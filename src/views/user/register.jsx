@@ -15,27 +15,27 @@ export default function Register() {
 
   async function handleRegister(e) {
     e.preventDefault();
-    try {
-      const response = await api("register", {
-        method: "POST",
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-        body: JSON.stringify(form),
-      });
-      if (response.data.token) {
+    await api("register", {
+      method: "POST",
+      body: JSON.stringify(form),
+    })
+      .then((data) => {
         Swal.fire({
           title: "Successs",
-          text: "User Registred",
+          text: data.message,
           icon: "success",
-          confirmButtonText: "Cool",
+          confirmButtonText: "ok",
         });
-        isLogin(response.data.token);
-      }
-    } catch (err) {
-      alert(err);
-      console.log(err);
-    }
+        isLogin(data.data.token);
+      })
+      .catch((error) =>
+        Swal.fire({
+          title: "Failed",
+          text: error.data.message,
+          icon: "error",
+          confirmButtonText: "ok",
+        })
+      );
   }
 
   return (
@@ -89,8 +89,11 @@ export default function Register() {
             Register
           </button>
           <div class="flex flex-col items-center mt-5">
-            <p class="mt-1 text-xs font-light text-gray-500">
-              Register already?<Link to="/login"> sign in</Link>
+          <p class="mt-1 text-xs font-light text-gray-500">
+              Register already?
+              <a class="ml-1 font-medium text-blue-400">
+                <Link to="/login">Sign in</Link>
+              </a>
             </p>
           </div>
         </form>

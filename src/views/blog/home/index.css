@@ -1,4 +1,31 @@
 .paginationActive {
-    background-color : red;
-}
-
+    background-color: #0f3d3e;
+    color: white;
+  }
+  
+  .pageLink {
+    padding: 10px;
+  }
+  
+  .pageLink:hover {
+    color: white;
+  }
+  
+  .nextBttn:hover {
+    color: white;
+    transition: all 0.3s ease-in;
+  }
+  
+  .nextBttn {
+    padding: 5px;
+  }
+  
+  .previousBttn {
+    padding: 5px;
+  }
+  
+  .previousBttn:hover {
+    color: white;
+    transition: all 0.3s ease-in;
+  }
+  

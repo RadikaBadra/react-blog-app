@@ -31,10 +31,6 @@ export default function EditBlog() {
     }
   }, [image]);
 
-  useEffect(() => {
-    refresh();
-  }, []);
-
   function handleImage(e) {
     const file = e.target.files[0];
     if (file && file.type.substring(0, 5) === "image") {
@@ -54,9 +50,7 @@ export default function EditBlog() {
       title: title,
       content: content,
     });
-    if (handleUpdateBlog) {
-      alert("success");
-    }
+    refresh();
   }
 
   return (
@@ -71,10 +65,8 @@ export default function EditBlog() {
         <div className="flex-col px-10 py-5 h-full">
           <div className="flex flex-row items-center relative">
             <div>
-              <h1 className="lg:text-7xl text-4xl font-bold">Write</h1>
-              <p className="my-1 text-sm lg:text-m">
-                write your thought into a good blog
-              </p>
+              <h1 className="lg:text-7xl text-4xl font-bold">Update</h1>
+              <p className="my-2 text-sm lg:text-m">update your own blogs</p>
               <form
                 action=""
                 className="flex flex-col w-[55vw] lg:w-[75vw] my-5"

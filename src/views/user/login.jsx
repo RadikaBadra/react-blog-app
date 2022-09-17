@@ -13,26 +13,29 @@ export default function Login() {
 
   async function handleLogin(e) {
     e.preventDefault();
-    try {
-      const response = await api("login", {
-        method: "POST",
-        body: JSON.stringify(form),
-      });
-      console.log(response);
-      if (response.data.token) {
+    await api("login", {
+      method: "POST",
+      body: JSON.stringify(form),
+    })
+      .then((data) => {
         Swal.fire({
           title: "Successs",
-          text: "User Logged In",
+          text: data.message,
           icon: "success",
-          confirmButtonText: "Cool",
+          confirmButtonText: "ok",
         });
-        isLogin(response.data.token);
-      }
-    } catch (err) {
-      alert(err);
-      console.log(err);
-    }
+        isLogin(data.data.token);
+      })
+      .catch((error) =>
+        Swal.fire({
+          title: "Failed",
+          text: error.data.message,
+          icon: "error",
+          confirmButtonText: "ok",
+        })
+      );
   }
+
   return (
     <div class="container mx-auto p-4 bg-white">
       <div class="w-full md:w-1/2 lg:w-1/3 mx-auto my-12">
@@ -64,7 +67,7 @@ export default function Login() {
           </button>
           <div class="flex flex-col items-center mt-5">
             <p class="mt-1 text-xs font-light text-gray-500">
-              Register already?
+              Don't have an account
               <a class="ml-1 font-medium text-blue-400">
                 <Link to="/register">Sign up</Link>
               </a>
