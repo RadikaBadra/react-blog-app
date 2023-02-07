@@ -14,6 +14,12 @@ export default function ReadBlog() {
   const refresh = useRecoilRefresher_UNSTABLE(getOneBlog(id));
   const imageUrl = "http://127.0.0.1:8000/storage/images/" + blog.image;
 
+  htmlDecode(content) {
+    let e = document.createElement('div');
+    e.innerHTML = content;
+    return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+  }
+  
   useEffect(() => {
     refresh();
   }, []);
@@ -28,13 +34,12 @@ export default function ReadBlog() {
             </aside>
           </div>
 
-          <div className="flex-col px-10 h-full py-5 w-11/12">
-            <div className="m-auto lg:w-[70vw] w-[65vw]">
-              <div className="w-50"></div>
+          <div className="lg:px-10 lg:py-10 h-full py-5 w-full">
+            <div className="m-auto w-[60vw] flex flex-col justify-center lg:w-11/12">
               <img
-                className="lg:h-[50vw] m-auto object-contain"
+                className="lg:h-[80vh] w-full m-auto object-cover"
                 src={imageUrl}
-              />{" "}
+              />
               <h1 className="text-[5vw] font-bold text-center my-16">
                 {blog.title}
               </h1>
@@ -51,13 +56,14 @@ export default function ReadBlog() {
                   {blog.author}
                 </span>
               </div>
-              <div dangerouslySetInnerHTML={{__html : `${blog.content}`}}>
-
-              </div>
-              <div className="mt-40 w-[70vw]">
+              <div
+                dangerouslySetInnerHTML={{ __html: {blog.content} }}
+              ></div>
+              <div className="mt-40 w-full">
                 <div className="mb-10">
                   <h1 className="text-[3vw] font-bold">Random Blogs</h1>
                 </div>
+                {blog.content}
                 {randomBlog.map((data) => (
                   <MiniCard title={data.title} id={data.id} />
                 ))}
