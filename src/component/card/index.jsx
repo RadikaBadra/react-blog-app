@@ -42,7 +42,7 @@ const Card = (props) => {
   return (
     <div
       key={props.id}
-      className="card md:h-[60vw] lg:h-[35vw] lg:w-80 h-[100vw] w-56 bg-text flex flex-col relative"
+      className="card md:h-[40vw] lg:h-[30vw] lg:w-80 h-[70vw] w-56 bg-text flex flex-col relative"
     >
       <div className="image">
         <img
@@ -58,18 +58,12 @@ const Card = (props) => {
         >
           {props.title}
         </h2>
-        <div className="flex items-center lg:text-sm text-[2.5vw] my-2 detail">
+        <div className="flex items-center lg:text-sm text-[2.5vw] md:text-sm my-2 detail">
           <MdDateRange className="icons mr-1 text-gray-600" />
           <span key={props.id + props.created}>{props.created}</span>
           <FaUserAlt className="icons ml-5 mr-1" />
           <span key={props.id + props.author}>{props.author}</span>
         </div>
-        <p
-          className="lg:text-base text-[3vw] line-clamp-3"
-          key={props.id + props.content}
-        >
-          {props.content}
-        </p>
         <div>
           {isDashboard ? (
             <>

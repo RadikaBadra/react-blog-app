@@ -59,7 +59,7 @@ export default function MakeBlog() {
         <div className="flex-col px-10 py-5 h-full">
           <div className="flex flex-row items-center relative">
             <div>
-              <h1 className="lg:text-7xl text-4xl font-bold">Write</h1>
+              <h1 className="lg:text-5xl text-4xl font-bold">Write</h1>
               <p className="my-1 text-sm lg:text-m">write your thought into a good blog</p>
               <form
                 action=""

@@ -1,8 +1,5 @@
 import { useParams } from "react-router-dom";
-import {
-  useRecoilValue,
-  useRecoilRefresher_UNSTABLE,
-} from "recoil";
+import { useRecoilValue, useRecoilRefresher_UNSTABLE } from "recoil";
 import { getOneBlog, getRandomBlogs } from "../../../store";
 import { useEffect } from "react";
 import Sidebar from "../../../component/sidebar";
@@ -33,29 +30,30 @@ export default function ReadBlog() {
 
           <div className="flex-col px-10 h-full py-5 w-11/12">
             <div className="m-auto lg:w-[70vw] w-[65vw]">
-              <div className="w-50">
-                <h1 className="text-[5vw] font-bold text-center my-16">
-                  {blog.title}
-                </h1>
-              </div>
+              <div className="w-50"></div>
               <img
                 className="lg:h-[50vw] m-auto object-contain"
                 src={imageUrl}
-              />
+              />{" "}
+              <h1 className="text-[5vw] font-bold text-center my-16">
+                {blog.title}
+              </h1>
               <div className="flex items-center my-10 detail">
-                <MdDateRange className="icons mr-1 text-gray" size={30} />
+                <MdDateRange className="icons mr-1 text-gray" size={10} />
                 <span
                   className="text-md text-gray"
                   key={blog.id + blog.created}
                 >
                   {blog.created_at}
                 </span>
-                <FaUserAlt className="icons ml-5 mr-1 text-gray" size={30} />
+                <FaUserAlt className="icons ml-5 mr-1 text-gray" size={10} />
                 <span className="text-md text-gray" key={blog.id + blog.author}>
                   {blog.author}
                 </span>
               </div>
-              <p className="mt-10 text-justify">&emsp; {blog.content}</p>
+              <div dangerouslySetInnerHTML={{__html : `${blog.content}`}}>
+
+              </div>
               <div className="mt-40 w-[70vw]">
                 <div className="mb-10">
                   <h1 className="text-[3vw] font-bold">Random Blogs</h1>

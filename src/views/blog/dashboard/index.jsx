@@ -26,9 +26,8 @@ export default function Dashboard() {
   }, []);
 
   function displayBlogs(blogs) {
-    return blogs
-      .slice(currPage, currPage + BlogsPerPage)
-      .map((blog) => (
+    return blogs.slice(currPage, currPage + BlogsPerPage).map((blog) => (
+      <div className="mt-6 lg:mt-0">
         <Card
           id={blog.id}
           title={blog.title}
@@ -38,7 +37,8 @@ export default function Dashboard() {
           image={blog.image}
           refresh={refresh}
         />
-      ));
+      </div>
+    ));
   }
   return (
     <>
@@ -49,13 +49,13 @@ export default function Dashboard() {
           </aside>
         </div>
 
-        <div className="flex-col md:h-full w-full lg:h-screen h-screen mx-10 py-5">
+        <div className="flex-col md:h-full lg:h-screen h-full mx-10 py-5 w-full">
           <div className="items-center w-full">
             <div>
-              <h1 className="lg:text-7xl w-11/12 text-4xl font-bold">
+              <h1 className="lg:text-5xl w-11/12 text-4xl font-bold">
                 {user.name} Dashboard
               </h1>
-              <p className="my-1 text-sm lg:text-m w-11/12">
+              <p className="my-2 text-sm lg:text-m w-11/12 mb-8">
                 this is your dashboard, you can read, edit, or delete your own
                 blogs
               </p>
@@ -69,7 +69,7 @@ export default function Dashboard() {
             </>
           ) : (
             <>
-              <div className="mt-10 grid lg:grid-cols-3 md:grid-cols-1 grid-cols-1 gap-4 ">
+              <div className="w-full lg:flex items-center justify-evenly lg:h-[70vh]">
                 {displayBlogs(blogs)}
               </div>
               <div>
