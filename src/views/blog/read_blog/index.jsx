@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import {
   useRecoilValue,
   useRecoilRefresher_UNSTABLE,
-  useRecoilState,
 } from "recoil";
 import { getOneBlog, getRandomBlogs } from "../../../store";
 import { useEffect } from "react";
@@ -40,7 +39,7 @@ export default function ReadBlog() {
                 </h1>
               </div>
               <img
-                className="lg:h-[80vw] m-auto object-contain"
+                className="lg:h-[50vw] m-auto object-contain"
                 src={imageUrl}
               />
               <div className="flex items-center my-10 detail">

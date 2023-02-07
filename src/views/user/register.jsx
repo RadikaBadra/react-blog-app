@@ -84,7 +84,7 @@ export default function Register() {
 
           <button
             type="submit"
-            class="mt-4 px-4 py-3  leading-6 text-base rounded-md border border-transparent text-white focus:outline-none bg-blue-500 text-blue-100 hover:text-white focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 cursor-pointer inline-flex items-center w-full justify-center items-center font-medium focus:outline-none"
+            class="mt-4 px-4 py-3  leading-6 text-base rounded-md border border-transparent text-white focus:outline-none bg-sidebar-bg text-blue-100 hover:text-white focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 cursor-pointer inline-flex items-center w-full justify-center items-center font-medium focus:outline-none"
           >
             Register
           </button>
@@ -92,7 +92,7 @@ export default function Register() {
           <p class="mt-1 text-xs font-light text-gray-500">
               Register already?
               <a class="ml-1 font-medium text-blue-400">
-                <Link to="/login">Sign in</Link>
+                <Link to="/login" className="text-sidebar-bg">Sign in</Link>
               </a>
             </p>
           </div>

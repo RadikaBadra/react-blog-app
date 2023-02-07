@@ -34,10 +34,38 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                 </ProtectedLogin>
               }
             />
-            <Route path="/makeBlog" element={<MakeBlog />} />
-            <Route path="/readBlog/:id" element={<ReadBlog />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="editBlog/:id" element={<EditBlog />} />{" "}
+            <Route
+              path="/makeBlog"
+              element={
+                <ProtectedLogin>
+                  <MakeBlog />
+                </ProtectedLogin>
+              }
+            />
+            <Route
+              path="/readBlog/:id"
+              element={
+                <ProtectedLogin>
+                  <ReadBlog />
+                </ProtectedLogin>
+              }
+            />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedLogin>
+                  <Dashboard />
+                </ProtectedLogin>
+              }
+            />
+            <Route
+              path="editBlog/:id"
+              element={
+                <ProtectedLogin>
+                  <EditBlog />
+                </ProtectedLogin>
+              }
+            />
           </Routes>{" "}
         </AuthProvider>
       </BrowserRouter>

@@ -61,7 +61,7 @@ export default function Login() {
 
           <button
             type="submit"
-            class="mt-4 px-4 py-3  leading-6 text-base rounded-md border border-transparent text-white focus:outline-none bg-blue-500 text-blue-100 hover:text-white focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 cursor-pointer inline-flex items-center w-full justify-center items-center font-medium focus:outline-none"
+            class="mt-4 px-4 py-3  leading-6 text-base rounded-md border border-transparent text-white focus:outline-none bg-sidebar-bg text-blue-100 hover:text-white focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 cursor-pointer inline-flex items-center w-full justify-center font-medium focus:outline-none"
           >
             Login
           </button>
@@ -69,7 +69,7 @@ export default function Login() {
             <p class="mt-1 text-xs font-light text-gray-500">
               Don't have an account
               <a class="ml-1 font-medium text-blue-400">
-                <Link to="/register">Sign up</Link>
+                <Link to="/register" className="text-sidebar-bg ">Sign up</Link>
               </a>
             </p>
           </div>

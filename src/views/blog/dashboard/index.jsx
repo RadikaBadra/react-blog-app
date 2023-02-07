@@ -12,6 +12,7 @@ import "./index.css";
 
 export default function Dashboard() {
   const user = useRecoilValue(authUser);
+  const refreshUser = useRecoilRefresher_UNSTABLE(authUser);
   const [blogs, setBlogs] = useRecoilState(getBlogUser(user.id));
   const [pageNumber, setPageNumber] = useState(0);
   const refresh = useRecoilRefresher_UNSTABLE(getBlogUser(user.id));
@@ -20,6 +21,7 @@ export default function Dashboard() {
   const currPage = pageNumber * BlogsPerPage;
 
   useEffect(() => {
+    refreshUser();
     refresh();
   }, []);
 
