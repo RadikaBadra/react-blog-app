@@ -14,18 +14,12 @@ export default function ReadBlog() {
   const refresh = useRecoilRefresher_UNSTABLE(getOneBlog(id));
   const imageUrl = "http://127.0.0.1:8000/storage/images/" + blog.image;
 
-  htmlDecode(content) {
-    let e = document.createElement('div');
-    e.innerHTML = content;
-    return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
-  }
-  
   useEffect(() => {
     refresh();
   }, []);
 
+
   return (
-    <>
       <div>
         <div className="flex flex-row bg-text-bg w-full text-title">
           <div>
@@ -56,14 +50,12 @@ export default function ReadBlog() {
                   {blog.author}
                 </span>
               </div>
-              <div
-                dangerouslySetInnerHTML={{ __html: {blog.content} }}
-              ></div>
+              <div dangerouslySetInnerHTML={{__html:blog.content}}>
+              </div>
               <div className="mt-40 w-full">
                 <div className="mb-10">
                   <h1 className="text-[3vw] font-bold">Random Blogs</h1>
                 </div>
-                {blog.content}
                 {randomBlog.map((data) => (
                   <MiniCard title={data.title} id={data.id} />
                 ))}
@@ -72,6 +64,5 @@ export default function ReadBlog() {
           </div>
         </div>
       </div>
-    </>
   );
 }

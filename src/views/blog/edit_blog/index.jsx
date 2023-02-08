@@ -4,6 +4,8 @@ import { useRecoilValue, useRecoilRefresher_UNSTABLE } from "recoil";
 import { authUser, handleUpdateBlog } from "../../../store";
 import { useParams } from "react-router-dom";
 import { getOneBlog } from "../../../store";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 export default function EditBlog() {
   const user = useRecoilValue(authUser);
@@ -65,38 +67,37 @@ export default function EditBlog() {
         <div className="flex-col px-10 py-5 h-full">
           <div className="flex flex-row items-center relative">
             <div>
-              <h1 className="lg:text-7xl text-4xl font-bold">Update</h1>
+              <h1 className="lg:text-5xl text-4xl font-bold">Update</h1>
               <p className="my-2 text-sm lg:text-m">update your own blogs</p>
               <form
                 action=""
                 className="flex flex-col w-[55vw] lg:w-[75vw] my-5"
                 onSubmit={(e) => handleSubmit(e)}
               >
-                <label htmlFor="title" className="lg:text-lg mt-2">
+                <label htmlFor="title" className="lg:text-lg mt-10">
                   Title
                 </label>
                 <input
                   type="text"
-                  className="border-2"
+                  className="border-2 mb-8"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                 />
-                <label htmlFor="content" className="lg:text-lg mt-2">
+                <label htmlFor="content" className="lg:text-lg">
                   Content
                 </label>
-                <textarea
-                  type="text"
-                  className="border-2 h-[100vw]"
+                <ReactQuill
+                  theme="snow"
                   value={content}
-                  onChange={(e) => setContent(e.target.value)}
-                  rows="11"
+                  onChange={setContent}
+                  className="h-screen"
                 />
-                <label htmlFor="image" className="lg:text-lg mt-5">
+                <label htmlFor="image" className="lg:text-lg mt-20">
                   Image
                 </label>
                 <div className="flex w-80 items-center mt-2 gap-2">
                   <button
-                    className="bg-green-600 lg:w-40 lg:h-40 w-24 h-24 lg:text-lg text-sm"
+                    className="bg-gray-200 lg:w-40 lg:h-40 w-24 h-24 lg:text-lg text-sm"
                     onClick={(e) => {
                       e.preventDefault();
                       fileInput.current.click();

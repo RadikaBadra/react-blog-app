@@ -3,6 +3,9 @@ import { useState, useRef, useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import { authUser } from "../../../store";
 import { handleMakeBlog } from "../../../store";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+
 
 export default function MakeBlog() {
   const user = useRecoilValue(authUser);
@@ -66,31 +69,25 @@ export default function MakeBlog() {
                 className="flex flex-col w-[55vw] lg:w-[75vw] my-5"
                 onSubmit={(e) => handleSubmit(e)}
               >
-                <label htmlFor="title" className="lg:text-lg mt-2">
+                <label htmlFor="title" className="lg:text-lg mt-10">
                   Title
                 </label>
                 <input
                   type="text"
-                  className="border-2"
+                  className="border-2 mb-8"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                 />
-                <label htmlFor="content" className="lg:text-lg mt-2">
+                <label htmlFor="content" className="lg:text-lg">
                   Content
                 </label>
-                <textarea
-                  type="text"
-                  className="border-2 h-[100vw]"
-                  value={content}
-                  onChange={(e) => setContent(e.target.value)}
-                  rows="11"
-                />
-                <label htmlFor="image" className="lg:text-lg mt-5">
+                <ReactQuill theme="snow" value={content} onChange={setContent} className="h-screen"/>
+                <label htmlFor="image" className="lg:text-lg mt-20">
                   Image
                 </label>
                 <div className="flex w-80 items-center mt-2 gap-2">
                   <button
-                    className="bg-green-600 lg:w-40 lg:h-40 w-24 h-24 lg:text-lg text-sm"
+                    className="bg-gray-200 lg:w-40 lg:h-40 w-24 h-24 lg:text-lg text-sm"
                     onClick={(e) => {
                       e.preventDefault();
                       fileInput.current.click();

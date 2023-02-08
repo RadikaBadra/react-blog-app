@@ -42,7 +42,7 @@ const Sidebar = () => {
                       isOpen ? "scale-100" : "scale-0"
                     } duration-300`}
                   >
-                    <h1>Homepage</h1>
+                    <h4>Homepage</h4>
                   </div>
                 </li>
               </Link>
@@ -57,7 +57,7 @@ const Sidebar = () => {
                       isOpen ? "scale-100" : "scale-0"
                     } duration-300`}
                   >
-                    <h1>Write</h1>
+                    <h4>Write</h4>
                   </div>
                 </li>
               </Link>
@@ -71,7 +71,7 @@ const Sidebar = () => {
                       isOpen ? "scale-100" : "scale-0"
                     } duration-300`}
                   >
-                    <h1>Dashboard</h1>
+                    <h4>Dashboard</h4>
                   </div>
                 </li>
               </Link>
@@ -85,7 +85,7 @@ const Sidebar = () => {
                       isOpen ? "scale-100" : "scale-0"
                     } duration-300`}
                   >
-                    <h2>Log Out</h2>
+                    <h4>Log Out</h4>
                   </div>
                 </div>
               </button>
