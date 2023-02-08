@@ -20,7 +20,7 @@ const Card = (props) => {
   function deleteFunction(e) {
     e.preventDefault();
     Swal.fire({
-      title: "Do you want to save the changes?",
+      title: "are you sure to delete this blog?",
       showDenyButton: true,
       confirmButtonText: "Yes",
       denyButtonText: "No",

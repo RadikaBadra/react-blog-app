@@ -24,8 +24,22 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         {" "}
         <AuthProvider>
           <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            <Route
+              path="/login"
+              element={
+                <ProtectedHome>
+                  <Login />
+                </ProtectedHome>
+              }
+            />
+            <Route
+              path="/register"
+              element={
+                <ProtectedHome>
+                  <Register />
+                </ProtectedHome>
+              }
+            />
             <Route
               path="/"
               element={

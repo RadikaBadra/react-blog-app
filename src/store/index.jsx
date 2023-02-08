@@ -58,7 +58,7 @@ const handleMakeBlog = async (data) => {
     .catch((error) => {
       Swal.fire({
         title: "Failed",
-        text: error.data.message,
+        text: error.data.data,
         icon: "error",
         confirmButtonText: "ok",
       });
@@ -153,7 +153,7 @@ const handleUpdateBlog = async (data) => {
     .catch((error) => {
       Swal.fire({
         title: "Failed",
-        text: error.data.message,
+        text: error.data.data,
         icon: "error",
         confirmButtonText: "ok",
       });

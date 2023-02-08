@@ -29,7 +29,7 @@ export default function Login() {
       .catch((error) =>
         Swal.fire({
           title: "Failed",
-          text: error.data.message,
+          text: error.data.data,
           icon: "error",
           confirmButtonText: "ok",
         })
