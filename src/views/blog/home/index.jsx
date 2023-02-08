@@ -43,7 +43,7 @@ export default function App() {
           </aside>
         </div>
 
-        <div className="flex-col md:h-full lg:h-screen h-full mx-10 py-5 w-full mb-8">
+        <div className="flex-col md:h-full lg:h-screen h-full mx-10 py-5 w-full">
           <div className="items-center w-full">
             <div>
               <h1 className="lg:text-5xl text-4xl md:text-5xl font-bold">
