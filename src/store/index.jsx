@@ -29,42 +29,6 @@ const authUser = selector({
   },
 });
 
-const handleMakeBlog = async (data) => {
-  let images = data.image;
-  let fd = new FormData();
-  fd.append("author", data.author);
-  fd.append("author_id", parseInt(data.author_id));
-  fd.append("image", images);
-  fd.append("title", data.title);
-  fd.append("content", data.content);
-
-  await api("makeBlog", {
-    method: "POST",
-    headers: {
-      contentType: "multipart/form-data",
-      Authorization: "Bearer " + localStorage.getItem("token"),
-    },
-    body: fd,
-  })
-    .then((data) => {
-      Swal.fire({
-        title: "Successs",
-        text: "Blog published",
-        icon: "success",
-        confirmButtonText: "Cool",
-      });
-      return data.data;
-    })
-    .catch((error) => {
-      Swal.fire({
-        title: "Failed",
-        text: error.data.data,
-        icon: "error",
-        confirmButtonText: "ok",
-      });
-    });
-};
-
 const getBlogs = selector({
   key: "getBlogs",
   get: async () => {
@@ -114,52 +78,6 @@ const getBlogUser = atomFamily({
   }),
 });
 
-// const getBlogUser = async (id) => {
-//   const response = await api(`userBlog/${id}`, {
-//     method: "GET",
-//     headers: {
-//       Authorization: `Bearer ${localStorage.getItem("token")}`,
-//     },
-//   });
-//   return response.data;
-// };
-
-const handleUpdateBlog = async (data) => {
-  let images = data.image;
-  let fd = new FormData();
-  fd.append("author", data.author);
-  fd.append("author_id", parseInt(data.author_id));
-  fd.append("image", images);
-  fd.append("title", data.title);
-  fd.append("content", data.content);
-
-  await api(`updateBlog/${data.id}`, {
-    method: "POST",
-    headers: {
-      contentType: "multipart/form-data",
-      Authorization: "Bearer " + localStorage.getItem("token"),
-    },
-    body: fd,
-  })
-    .then((data) => {
-      Swal.fire({
-        title: "Success",
-        text: data.message,
-        icon: "success",
-        confirmButtonText: "ok",
-      });
-      return data.data;
-    })
-    .catch((error) => {
-      Swal.fire({
-        title: "Failed",
-        text: error.data.data,
-        icon: "error",
-        confirmButtonText: "ok",
-      });
-    });
-};
-
 const handleDeleteBlog = async (id) => {
   try {
     const response = await api(`deleteBlog/${id}`, {
@@ -191,10 +109,8 @@ const getRandomBlogs = selector({
 export {
   authUser,
   getBlogs,
-  handleMakeBlog,
   getOneBlog,
   getBlogUser,
-  handleUpdateBlog,
   handleDeleteBlog,
   getRandomBlogs
 };

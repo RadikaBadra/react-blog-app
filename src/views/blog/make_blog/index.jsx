@@ -2,14 +2,16 @@ import Sidebar from "../../../component/sidebar";
 import { useState, useRef, useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import { authUser } from "../../../store";
-import { handleMakeBlog } from "../../../store";
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
-
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import { useNavigate } from "react-router-dom";
+import api from "../../../api";
+import Swal from "sweetalert2";
 
 export default function MakeBlog() {
   const user = useRecoilValue(authUser);
 
+  const navigate = useNavigate();
   const [image, setImage] = useState();
   const [author, setAuthor] = useState(user.name);
   const [author_id, setAuthor_id] = useState(parseInt(user.id));
@@ -38,17 +40,47 @@ export default function MakeBlog() {
       setImage(null);
     }
   }
-
-  function handleSubmit(e) {
+  
+  const handleMakeBlog = async (e) => {
     e.preventDefault();
-    handleMakeBlog({
-      image,
-      author,
-      author_id,
-      title,
-      content,
-    });
-  }
+    let status = false;
+    let fd = new FormData();
+    fd.append("author", author);
+    fd.append("author_id", parseInt(author_id));
+    fd.append("image", image);
+    fd.append("title", title);
+    fd.append("content", content);
+
+    await api("makeBlog", {
+      method: "POST",
+      headers: {
+        contentType: "multipart/form-data",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      body: fd,
+    })
+      .then((data) => {
+        Swal.fire({
+          title: "Successs",
+          text: "Blog published",
+          icon: "success",
+          confirmButtonText: "Cool",
+        });
+        status = true;
+      })
+      .catch((error) => {
+        Swal.fire({
+          title: "Failed",
+          text: error.data.data,
+          icon: "error",
+          confirmButtonText: "ok",
+        });
+      });
+      
+      if(status == true){
+        navigate("/dashboard")
+      }
+  };
 
   return (
     <>
@@ -63,11 +95,13 @@ export default function MakeBlog() {
           <div className="flex flex-row items-center relative">
             <div>
               <h1 className="lg:text-5xl text-4xl font-bold">Write</h1>
-              <p className="my-1 text-sm lg:text-m">write your thought into a good blog</p>
+              <p className="my-1 text-sm lg:text-m">
+                write your thought into a good blog
+              </p>
               <form
                 action=""
                 className="flex flex-col w-[55vw] lg:w-[75vw] my-5"
-                onSubmit={(e) => handleSubmit(e)}
+                onSubmit={(e) => handleMakeBlog(e)}
               >
                 <label htmlFor="title" className="lg:text-lg mt-10">
                   Title
@@ -81,7 +115,12 @@ export default function MakeBlog() {
                 <label htmlFor="content" className="lg:text-lg">
                   Content
                 </label>
-                <ReactQuill theme="snow" value={content} onChange={setContent} className="h-screen"/>
+                <ReactQuill
+                  theme="snow"
+                  value={content}
+                  onChange={setContent}
+                  className="h-screen"
+                />
                 <label htmlFor="image" className="lg:text-lg mt-20">
                   Image
                 </label>

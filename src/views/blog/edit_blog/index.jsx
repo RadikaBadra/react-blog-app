@@ -1,19 +1,23 @@
 import Sidebar from "../../../component/sidebar";
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useRecoilValue, useRecoilRefresher_UNSTABLE } from "recoil";
-import { authUser, handleUpdateBlog } from "../../../store";
+import { authUser } from "../../../store";
 import { useParams } from "react-router-dom";
 import { getOneBlog } from "../../../store";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { useNavigate } from "react-router-dom";
+import api from './../../../api/index';
+import Swal from "sweetalert2";
 
 export default function EditBlog() {
   const user = useRecoilValue(authUser);
   const id = useParams().id;
   const fileInput = useRef();
   const blog = useRecoilValue(getOneBlog(id));
-  const refresh = useRecoilRefresher_UNSTABLE(getOneBlog(id));
+  // const refresh = useRecoilRefresher_UNSTABLE(getOneBlog(id));
 
+  const navigate = useNavigate();
   const [image, setImage] = useState();
   const [author, setAuthor] = useState(user.name);
   const [author_id, setAuthor_id] = useState(parseInt(user.id));
@@ -42,18 +46,46 @@ export default function EditBlog() {
     }
   }
 
-  function handleSubmit(e) {
+  const handleUpdateBlog = async (e) => {
     e.preventDefault();
-    handleUpdateBlog({
-      id: blog.id,
-      image: image,
-      author: author,
-      author_id: author_id,
-      title: title,
-      content: content,
-    });
-    refresh();
-  }
+    let status = false;
+    let fd = new FormData();
+    fd.append("author", author);
+    fd.append("author_id", parseInt(author_id));
+    fd.append("image", image);
+    fd.append("title", title);
+    fd.append("content", content);
+
+    await api(`updateBlog/${id}`, {
+      method: "POST",
+      headers: {
+        contentType: "multipart/form-data",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      body: fd,
+    })
+      .then((data) => {
+        Swal.fire({
+          title: "Successs",
+          text: "Blog Updated",
+          icon: "success",
+          confirmButtonText: "Cool",
+        });
+        status = true;
+      })
+      .catch((error) => {
+        Swal.fire({
+          title: "Failed",
+          text: error.data.data,
+          icon: "error",
+          confirmButtonText: "ok",
+        });
+      });
+      
+      if(status == true){
+        navigate("/dashboard")
+      }
+  };
 
   return (
     <>
@@ -72,7 +104,7 @@ export default function EditBlog() {
               <form
                 action=""
                 className="flex flex-col w-[55vw] lg:w-[75vw] my-5"
-                onSubmit={(e) => handleSubmit(e)}
+                onSubmit={(e) => handleUpdateBlog(e)}
               >
                 <label htmlFor="title" className="lg:text-lg mt-10">
                   Title
